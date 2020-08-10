@@ -1,3 +1,6 @@
+# Use `kubectl explain pod` to see all resources keyword.
+# kubectl apply -f 'yaml-file' to run pod
+# kubectl delete pod pod-name to delete pod
 apiVersion: v1        ##版本为v1
 kind: Pod               ##资源类型为Pod
 metadata:              ## 元数据，下面是需要配置的子字段，这里缩进字符要保持一致
@@ -5,9 +8,9 @@ metadata:              ## 元数据，下面是需要配置的子字段，这里
   namespace: default    ##pod所在的名称空间,默认的名称空间
   labels:                   ##标签-- 下面全用KV格式书写，这里我们给这个pod 打上两个标签  ↓
     app: pod-demo  
-    release: bata
+    release: beta
 spec:           
   containers:              ##容器
   - name: app-container            ##容器名
     image: ikubernetes/myapp:v1     ##镜像地址
-    imagePullPolicy: ifNotPresent
+    imagePullPolicy: IfNotPresent
