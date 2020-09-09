@@ -1,0 +1,19 @@
+apiVersion: v1 
+kind: Pod              
+metadata:              
+  name: liveness-http-pod      
+  namespace: default    
+  labels:                   
+    app: liveness-http-pod  
+    release: beta
+spec:           
+  containers:            
+  - name: liveness-http-container       
+    image: yeasy/simple-web:latest
+    imagePullPolicy: IfNotPresent
+    livenessProbe:
+        httpGet:
+          port: 80
+          path: /index.html
+        initialDelaySeconds: 1
+        periodSeconds: 3
