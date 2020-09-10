@@ -78,7 +78,7 @@ iOSInjectionProject/
 dummy-file-copy
 
 # IDE related
-*/idea/
+*/.idea/
 .idea/
 .vscode/
 .settings/
