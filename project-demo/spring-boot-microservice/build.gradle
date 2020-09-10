@@ -1,0 +1,66 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version "2.2.2.RELEASE"
+}
+
+group = 'com.example'
+version = '1.0.0-SNAPSHOT'
+description = 'demo api project'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
+
+configurations.all {
+    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    exclude group: 'ch.qos.logback', module: 'logback-core'
+    exclude group: 'ch.qos.logback', module: 'logback-classic'
+}
+
+ext {
+    springBootVersion = '2.2.2.RELEASE'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    }
+
+    dependencies {
+        dependency group: 'com.google.guava', name: 'guava-testlib', version: '28.1-jre'
+    }
+}
+
+dependencies {
+    implementation('org.apache.logging.log4j:log4j-core')
+    implementation('org.apache.logging.log4j:log4j-api')
+    implementation group: 'org.slf4j', name: 'slf4j-api'
+
+    implementation('org.springframework.boot:spring-boot-starter-web')
+
+    compileOnly group: 'org.projectlombok', name: 'lombok'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok'
+
+    testImplementation group: 'org.projectlombok', name: 'lombok'
+    testImplementation group: 'junit', name: 'junit'
+    testImplementation 'org.mockito:mockito-core'
+}
