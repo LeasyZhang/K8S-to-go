@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DEFAULT_JAR_NAME="basket-api-*.jar"
+DEFAULT_JAR_NAME="demo-api-*.jar"
 
 # Default JMX port is 8888, you can override it using environment variable JMX_PORT or Marathon specific PORTX
 JMX_PORT=${JMX_PORT:-8888}
@@ -30,7 +30,7 @@ DEFAULT_GC_OPTS="-XX:-UseGCOverheadLimit  \
                     -XX:+CMSScavengeBeforeRemark \
                     -XX:+DisableExplicitGC \
                     -XX:+HeapDumpOnOutOfMemoryError \
-                    -XX:HeapDumpPath=/opt/basket-api"
+                    -XX:HeapDumpPath=/opt/demo-api"
 
 # Default configuration for logging
 DEFAULT_LOGGING_OPTS="-Dlogging.stdout=false \
@@ -66,6 +66,6 @@ JAVA_OPTIONS=${WORKER_JAVA_OPTIONS:-"${JVM_OPTS} ${RUNTIME_OPTS} -jar ${JAR_NAME
 
 echo "JAVA Options: $JAVA_OPTIONS"
 
-echo "== Booting Basket API... =="
+echo "== Booting Demo API... =="
 
 exec java $JAVA_OPTIONS
