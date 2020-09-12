@@ -1,19 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: demo-api-deployment
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app: demo-api
   replicas: 3
   template:
     metadata:
       labels:
-        app: nginx
+        app: demo-api
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.7.9
+      - name: demo-api-container
+        image: leasy/demo-api:v2
+        command: ["/demo-api/start.sh"]
         ports:
-        - containerPort: 80
+        - containerPort: 8080
