@@ -1,4 +1,4 @@
-FROM openjdk:8 as runtime
+FROM java:8-jdk-alpine as runtime
 # config lang
 ENV LANG en_US.UTF-8
 
