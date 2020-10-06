@@ -1,0 +1,22 @@
+# Please execute new-taint.sh script before create this pod resource
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  tolerations:
+  - key: "key"
+    operator: "Exists"
+    # If key does not equals to "key", the pod will not be scheduled
+    effect: "NoSchedule"
+  - key: "key"
+    value: "value"
+    effect: "NoExecute"
+    # The node will be evicted after 30 seconds
+    tolerationSeconds: 30
