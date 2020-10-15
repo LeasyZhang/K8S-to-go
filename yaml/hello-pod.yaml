@@ -12,5 +12,5 @@ metadata:              ## 元数据，下面是需要配置的子字段，这里
 spec:           
   containers:              ##容器
   - name: app-container            ##容器名
-    image: ikubernetes/myapp:v1     ##镜像地址
+    image: nginx    ##镜像地址
     imagePullPolicy: IfNotPresent
