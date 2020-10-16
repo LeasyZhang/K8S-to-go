@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: goapp-deploy
+    namespace: default
+    labels:
+      k8s-app: goappk8s
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      k8s-app: goappk8s
+  template:
+    metadata:
+      labels:
+        k8s-app: goappk8s
+    spec:
+      containers:
+        - image: {{ .Values.image.repository}}:{{.Values.image.tag}}
+          imagePullPolicy: Always
+          name: demo-api-go
+          ports:
+          - containerPort: 9000
+            protocol: TCP
