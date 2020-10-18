@@ -1,0 +1,16 @@
+image:
+  repository: k8s.gcr.io/kubernetes-dashboard-amd
+  tag: v1.10.1
+ingress:
+  enabled: true
+  hosts:
+    - k8s.frognew.com
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+  tls:
+    - secretName: frognew-com-tls-secret
+      hosts:
+        - k8s.frognew.com
+rbac:
+  clusterAdminRole: true
