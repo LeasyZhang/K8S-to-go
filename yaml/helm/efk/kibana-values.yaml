@@ -1,0 +1,9 @@
+files:
+  kibana.yml:
+    elasticsearch.hosts: http://elasticsearch-client:9200
+service:
+  type: NodePort
+  nodePort: 30922   
+persistentVolumeClaim:
+  enabled: false  # 如果不使用pvc永久存储，只做测试就改为false
+  storageClass: "nfs2"     
