@@ -1,0 +1,19 @@
+image:
+  repository: gcr.io/google-containers/fluentd-elasticsearch # 默认地址可能不可用
+  # repository: registry.cn-beijing.aliyuncs.com/wangzt/kubernetes/fluentd-elasticsearch
+elasticsearch:
+  buffer_chunk_limit: 32M  # 内存缓冲区
+service:  #启动监控monitor-agent
+  type: NodePort
+  ports:
+    - name: "monitor-agent"
+      port: 24231
+env:     
+  OUTPUT_BUFFER_CHUNK_LIMIT: "32M" # 设置buffer缓存区大小
+podAnnotations: # 让prometheus监控monitor-agent
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "24231"
+tolerations:  #监控master
+  - key: node-role.kubernetes.io/master
+    operator: Exists
+    effect: NoSchedule

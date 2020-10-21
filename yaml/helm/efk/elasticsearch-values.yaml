@@ -1,0 +1,15 @@
+image:
+  repository: "docker.elastic.co/elasticsearch/elasticsearch-oss"
+  # repository: "registry.cn-beijing.aliyuncs.com/wangzt/k8s/elasticsearch-oss:6.7.0" 个人镜像仓库
+  tag: "6.7.0"
+client:
+  serviceType: "NodePort"
+  httpNodePort: 30920
+master:
+  persistence:
+    enabled: false  #  elasticsearch-master使用pvc永久存储，如果是测试，可以换成false
+    storageClass: "nfs2"
+data:
+  persistence:
+    enabled: false  #elasticsearch-data使用pvc永久存储，如果是测试，可以换成false
+    storageClass: "nfs2"
