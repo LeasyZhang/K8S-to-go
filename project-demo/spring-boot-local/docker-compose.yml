@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  mariadb:
+    image: 'bitnami/mariadb:10.3'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_DATABASE=db_example
+      - MARIADB_USER=springuser
+      - MARIADB_PASSWORD=ThePassword
+  myapp:
+    image: 'leasy/spring-java-app'
+    environment:
+      - 'SPRING_APPLICATION_JSON={"spring": {"datasource":{"url": "jdbc:mysql://mariadb:3306/db_example", "username": "springuser", "password": "ThePassword"}}}'
+    depends_on:
+      - mariadb
+    ports:
+     - '8080:8080'
