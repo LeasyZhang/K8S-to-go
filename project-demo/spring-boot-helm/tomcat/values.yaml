@@ -1,170 +1,62 @@
-## Global Docker image parameters
-## Please, note that this will override the image parameters, including dependencies, configured to use the global value
-## Current available global Docker image parameters: imageRegistry and imagePullSecrets
-##
-# global:
-#   imageRegistry: myRegistryName
-#   imagePullSecrets:
-#     - myRegistryKeySecretName
-#   storageClass: myStorageClass
-
-## Force target Kubernetes version (using Helm capabilites if not set)
-##
 kubeVersion:
 
-## Bitnami Tomcat image version
-## ref: https://hub.docker.com/r/bitnami/tomcat/tags/
-##
 image:
   registry: docker.io
-  repository: bitnami/tomcat
-  tag: 10.0.5-debian-10-r18
-  ## Specify a imagePullPolicy
-  ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
-  ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
-  ##
+  repository: leasy/spring-java-app
+  tag: latest
   pullPolicy: IfNotPresent
-  ## Optionally specify an array of imagePullSecrets.
-  ## Secrets must be manually created in the namespace.
-  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
-  ## Example:
-  ## pullSecrets:
-  ##   - myRegistryKeySecretName
-  ##
   pullSecrets: []
-  ## Set to true if you would like to see extra information on logs
-  ##
   debug: false
 
-## String to partially override common.names.fullname template (will maintain the release name)
-##
-# nameOverride:
-
-## String to fully override common.names.fullname template
-##
-# fullnameOverride:
-
-## Add labels to all the deployed resources
-##
 commonLabels: {}
 
-## Add annotations to all the deployed resources
-##
 commonAnnotations: {}
 
-## Kubernetes Cluster Domain
-##
 clusterDomain: cluster.local
 
-## Extra objects to deploy (value evaluated as a template)
-##
 extraDeploy: []
 
-## Deployment pod host aliases
-## https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
-##
 hostAliases: []
 
-## Admin user
-## ref: https://github.com/bitnami/bitnami-docker-tomcat#creating-a-custom-user
-##
 tomcatUsername: user
 
-## Admin password
-## ref: https://github.com/bitnami/bitnami-docker-tomcat#creating-a-custom-user
-##
-# tomcatPassword:
-
-## Expose management services
-## ref: https://github.com/bitnami/charts/tree/master/bitnami/tomcat#configuration
-##
 tomcatAllowRemoteManagement: 0
 
-## Command and args for running the container (set to default if not set). Use array form
-##
 command: []
 args: []
 
-## Additional environment variables to set
-## Example:
-## extraEnvVars:
-##   - name: FOO
-##     value: "bar"
-##
 extraEnvVars: []
 
-## ConfigMap with extra environment variables
-##
 extraEnvVarsCM:
 
-## Secret with extra environment variables
-##
 extraEnvVarsSecret:
 
-## Number of Tomcat replicas
-##
 replicaCount: 1
 
-## Deployment
-##
 deployment:
-  ## Deployment type: deployment or statefulset
-  ##
   type: deployment
 
-## Strategy to use to update Pods
-##
 updateStrategy:
-  ## StrategyType
-  ## Can be set to RollingUpdate or OnDelete
-  ##
   type: RollingUpdate
 
-## Tomcat container port to open
-##
 containerPort: 8080
 
-## Tomcat container extra ports to open
-##
-## Example:
-## containerExtraPorts:
-##  - name: ajp
-##    containerPort: 8081
-##
 containerExtraPorts: {}
 
-## Tomcat pods' Security Context
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-container
-##
 podSecurityContext:
   enabled: true
   fsGroup: 1001
 
-## Tomcat containers' SecurityContext
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod
-##
 containerSecurityContext:
   enabled: true
   runAsUser: 1001
 
-## Tomcat containers' resource requests and limits
-## ref: http://kubernetes.io/docs/user-guide/compute-resources/
-##
 resources:
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits: {}
-  #   cpu: 500m
-  #   memory: 1Gi
   requests:
     cpu: 300m
     memory: 512Mi
 
-## Liveness and Readiness probes
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-##
 livenessProbe:
   enabled: true
   httpGet:
@@ -186,34 +78,16 @@ readinessProbe:
   timeoutSeconds: 3
   successThreshold: 1
 
-## Custom Liveness probes for Tomcat
-##
 customLivenessProbe: {}
 
-## Custom Rediness probes Tomcat
-##
 customReadinessProbe: {}
 
-## Additional pod labels
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
-##
 podLabels: {}
 
-## Additional pod annotations
-## ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
-##
 podAnnotations: {}
 
-## Pod affinity preset
-## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
-## Allowed values: soft, hard
-##
 podAffinityPreset: ""
 
-## Pod anti-affinity preset
-## Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity
-## Allowed values: soft, hard
-##
 podAntiAffinityPreset: soft
 
 ## Node affinity preset
@@ -294,22 +168,8 @@ sidecars: {}
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
 persistence:
-  ## If true, use a Persistent Volume Claim, If false, use emptyDir
-  ##
   enabled: true
-  ## Persistent Volume Storage Class
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is
-  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-  ##   GKE, AWS & OpenStack)
-  ##
-  # storageClass: "-"
-  ## Persistent Volume Claim annotations
-  ##
   annotations:
-  ## Persistent Volume Access Mode
-  ##
   accessModes:
     - ReadWriteOnce
   ## Persistent Volume size
@@ -337,18 +197,7 @@ service:
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
   ##
   nodePort: ""
-  ## Use serviceLoadBalancerIP to request a specific static IP,
-  ## otherwise leave blank
-  ##
-  # loadBalancerIP:
-  ## Enable client source IP preservation
-  ## ref http://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
-  ##
   externalTrafficPolicy: Cluster
-  ## Provide any additional annotations which may be required. This can be used to
-  ## set the LoadBalancer service type to internal only.
-  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
-  ##
   annotations: {}
 
 ## Ingress configuratiom
@@ -462,3 +311,18 @@ volumePermissions:
     requests: {}
     #   cpu: 100m
     #   memory: 128Mi
+mariadb:
+   Whether to deploy a mariadb server to satisfy the applications database requirements. To use an external database set this to false and configure the externalDatabase parameters
+  enabled: true
+   Disable MariaDB replication
+  replication:
+    enabled: false
+   Create a database and a database user
+   ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.mdcreating-a-database-user-on-first-run
+
+  db:
+    name: db_example
+    user: springuser
+   If the password is not specified, mariadb will generates a random password
+
+  password: ThePassword
