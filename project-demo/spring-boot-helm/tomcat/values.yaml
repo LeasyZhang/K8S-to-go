@@ -312,17 +312,17 @@ volumePermissions:
     #   cpu: 100m
     #   memory: 128Mi
 mariadb:
-   Whether to deploy a mariadb server to satisfy the applications database requirements. To use an external database set this to false and configure the externalDatabase parameters
+  #  Whether to deploy a mariadb server to satisfy the applications database requirements. To use an external database set this to false and configure the externalDatabase parameters
   enabled: true
-   Disable MariaDB replication
+  #  Disable MariaDB replication
   replication:
     enabled: false
-   Create a database and a database user
-   ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.mdcreating-a-database-user-on-first-run
+  #  Create a database and a database user
+  #  ref: https://github.com/bitnami/bitnami-docker-mariadb/blob/master/README.mdcreating-a-database-user-on-first-run
 
   db:
     name: db_example
     user: springuser
-   If the password is not specified, mariadb will generates a random password
+  #  If the password is not specified, mariadb will generates a random password
 
   password: ThePassword
