@@ -70,6 +70,11 @@ containers:
         key: tomcat-password
   - name: TOMCAT_ALLOW_REMOTE_MANAGEMENT
     value: {{ .Values.tomcatAllowRemoteManagement | quote }}
+  - name: SPRING_APPLICATION_JSON
+    valueFrom:
+      secretKeyRef:
+        name: {{ template "common.names.fullname" . }}-spring
+        key: spring-db
   {{- if .Values.extraEnvVars }}
   {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 2 }}
   {{- end }}
